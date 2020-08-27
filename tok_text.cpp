@@ -26,13 +26,15 @@ int main(void) {
     create_filename(path, write_path, write_string);
     wofstream writeFile;
     writeFile.open(write_path);
-    wstring tok = L"text";
+    
+    wstring tok = L"Next";      //token word
+
     if (readFile.is_open()) {       //open으로 대체 가능
         while (readFile.good()) {
             if (!writeFile.is_open()) writeFile.open(write_path);
             WCHAR c = readFile.get();
             writeFile << c;
-            if (c == L'아') {
+            if (c == L'N') {     //tok의 기준으로 N을 만나면 Next인지 확인하는 작업.
                 int i = 0;
                 while (true) {
                     if (tok[i++] != c) break;
@@ -40,7 +42,6 @@ int main(void) {
                     writeFile << c;
                 }
                 if (tok.size() == i - 1) {
-                    cout << "hi";
                     writeFile.close();
                     num++;
                     string write_string = "\\a\\" + to_string(num) + ".txt";
